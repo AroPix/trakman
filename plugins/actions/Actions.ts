@@ -1,6 +1,8 @@
 import config from './Config.js'
+import globalConfig from '../../config/Config.js'
 import { VoteWindow } from '../ui/UI.js'
 import { titles } from '../../config/Titles.js'
+import fs from "fs/promises";
 
 interface CallerInfo {
   login: string,
@@ -484,6 +486,12 @@ export const actions = {
         nickname: tm.utils.strip(nickname, true),
         map: tm.utils.strip(tm.maps.current.name, true)
       }), config.removeMap.public ? undefined : login)
+      if (config.removeMap.deleteFile && globalConfig.manualMapLoading.enabled) {
+          const file = globalConfig.manualMapLoading.mapsDirectoryPrefix + tm.maps.current.fileName
+          tm.log.info(`Deleting track file ${file}`)
+          await fs.unlink(file)
+      }
+
       return
     }
     const map = tm.maps.get(id)

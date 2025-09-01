@@ -135,6 +135,7 @@ export default {
     error: `${p.error}Error while removing the map.`,
     onlyMap: `${p.error}There are no more maps in the server playlist.`,
     public: true,
+    deleteFile: true
   },
   requeueMap: {
     text: `${p.admin}#{title} ${p.highlight}#{adminName} ${p.admin}has requeued the ongoing map.`,
